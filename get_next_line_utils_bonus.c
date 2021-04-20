@@ -12,9 +12,9 @@
 
 #include "get_next_line_bonus.h"
 
-size_t		ft_strlen(const char *s)
+size_t	ft_strlen(const char *s)
 {
-	size_t len;
+	size_t	len;
 
 	len = 0;
 	if (!s)
@@ -24,9 +24,9 @@ size_t		ft_strlen(const char *s)
 	return (len);
 }
 
-char		*ft_strchr(const char *s, int c)
+char	*ft_strchr(const char *s, int c)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	while ((s[i] != '\0') && ((char)c != s[i]))
@@ -37,32 +37,34 @@ char		*ft_strchr(const char *s, int c)
 		return (0);
 }
 
-char		*ft_strdup(char *s)
+char	*ft_strdup(char *s)
 {
 	char	*temp;
 
-	if (!(temp = malloc((ft_strlen(s) + 1) * sizeof(char))))
+	temp = malloc((ft_strlen(s) + 1) * sizeof(char));
+	if (!temp)
 		return (NULL);
 	str_copy(temp, s, ft_strlen(s) + 1);
 	return (temp);
 }
 
-char		*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*temp;
 
 	if (!s1 && !s2)
 		return (NULL);
-	if (!(temp = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char))))
+	temp = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char));
+	if (!temp)
 		return (NULL);
 	str_copy(temp, s1, (ft_strlen(s1) + 1));
 	str_copy((temp + ft_strlen(s1)), s2, (ft_strlen(s2) + 1));
 	return (temp);
 }
 
-size_t		str_copy(char *dst, char *src, size_t size)
+size_t	str_copy(char *dst, char *src, size_t size)
 {
-	size_t i;
+	size_t	i;
 
 	i = 0;
 	if (!(src))

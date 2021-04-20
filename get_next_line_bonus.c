@@ -12,7 +12,7 @@
 
 #include "get_next_line_bonus.h"
 
-char		*ft_substr(char *s, unsigned int start, size_t len)
+char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*subs;
 	size_t	sizestr;
@@ -30,7 +30,7 @@ char		*ft_substr(char *s, unsigned int start, size_t len)
 	return (subs);
 }
 
-char		*new_line(char *temp, char **line, int n)
+char	*new_line(char *temp, char **line, int n)
 {
 	char	*extra;
 	int		i;
@@ -56,9 +56,9 @@ char		*new_line(char *temp, char **line, int n)
 	return (extra);
 }
 
-int			do_read(int fd, char *buffer, char **temp, int *n)
+int	do_read(int fd, char *buffer, char **temp, int *n)
 {
-	char *othertemp;
+	char	*othertemp;
 
 	while (*n && (!(ft_strchr(*temp, '\n'))))
 	{
@@ -77,18 +77,19 @@ int			do_read(int fd, char *buffer, char **temp, int *n)
 	return (1);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
 	char		*buffer;
 	int			n;
-	static char *temp[OPEN_MAX];
+	static char	*temp[OPEN_MAX];
 
 	n = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd > RLIMIT_NOFILE)
 		return (-1);
 	if (!temp[fd])
 		temp[fd] = ft_strdup("");
-	if (!(buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!buffer)
 		return (-1);
 	if (!(do_read(fd, buffer, &temp[fd], &n)))
 		return (-1);
