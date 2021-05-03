@@ -6,7 +6,7 @@
 /*   By: csantos- <csantos-@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 00:48:15 by csantos-          #+#    #+#             */
-/*   Updated: 2021/03/04 00:51:43 by csantos-         ###   ########.fr       */
+/*   Updated: 2021/05/03 04:22:06 by csantos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ int	do_read(int fd, char *buffer, char **temp, int *n)
 	return (1);
 }
 
-int	get_next_line(int fd, char **line)
+/*int	get_next_line(int fd, char **line)
 {
+	static char	*temp;
 	char		*buffer;
 	int			n;
-	static char	*temp;
 
 	n = 1;
 	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd > RLIMIT_NOFILE)
@@ -95,6 +95,30 @@ int	get_next_line(int fd, char **line)
 		return (-1);
 	temp = new_line(temp, line, n);
 	if (!n)
+		return (0);
+	return (1);
+}*/
+
+int	get_next_line (int fd, char **line)
+{
+	static char		*new_str;
+	char			*buffer;
+	int				bytes;
+
+	bytes = 1;
+
+	if (fd < 0 || !line || BUFFER_SIZE <= 0 || fd > RLIMIT_NOFILE)
+		return (-1);
+	buffer = (char*)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!new_str)
+		new_str = ft_strdup("");
+	buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!(buffer))
+		return (-1);
+	if(!(reading(fd, buffer, &new_str, &bytes)))
+		return (-1);
+	new_str = handler(new_str, line, bytes);
+	if(!bytes)
 		return (0);
 	return (1);
 }
